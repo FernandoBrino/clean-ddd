@@ -4,11 +4,12 @@ import { Optional } from "@/core/types/optional";
 import { Slug } from "./value-objects/slug";
 import { AggregateRoot } from "@/core/entities/aggregate-root";
 import { QuestionAttachment } from "./question-attachment";
+import { QuestionAttachmenntList } from "./question-attachment-list";
 
 export interface QuestionProps {
   authorId: UniqueEntityId;
   bestAnswerId?: UniqueEntityId;
-  attachments: QuestionAttachment[];
+  attachments: QuestionAttachmenntList;
   title: string;
   content: string;
   slug: Slug;
@@ -72,7 +73,7 @@ export class Question extends AggregateRoot<QuestionProps> {
     this.touch();
   }
 
-  set attachments(attachments: QuestionAttachment[]) {
+  set attachments(attachments: QuestionAttachmenntList) {
     this.props.attachments = attachments;
   }
 
@@ -89,7 +90,7 @@ export class Question extends AggregateRoot<QuestionProps> {
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
-        attachments: props.attachments ?? [],
+        attachments: props.attachments ?? new QuestionAttachmenntList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id
