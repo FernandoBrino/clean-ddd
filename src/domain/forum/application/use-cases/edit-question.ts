@@ -4,7 +4,7 @@ import { QuestionsRepository } from "../repositories/questions-repository";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { NotAllowedError } from "./errors/not-allowed-error";
 import { QuestionAttachmentsRepository } from "../repositories/question-attachments-repository";
-import { QuestionAttachmenntList } from "../../enterprise/entities/question-attachment-list";
+import { QuestionAttachmentList } from "../../enterprise/entities/question-attachment-list";
 import { QuestionAttachment } from "../../enterprise/entities/question-attachment";
 import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 
@@ -49,7 +49,7 @@ export class EditQuestionUseCase {
     const currentQuestionAttachments =
       await this.questionAttachmentsRepository.findManyByQuestionId(questionId);
 
-    const questionAttachmentList = new QuestionAttachmenntList(
+    const questionAttachmentList = new QuestionAttachmentList(
       currentQuestionAttachments
     );
 

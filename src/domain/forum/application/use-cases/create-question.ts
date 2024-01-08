@@ -3,7 +3,7 @@ import { Question } from "../../enterprise/entities/question";
 import { QuestionsRepository } from "../repositories/questions-repository";
 import { Either, right } from "@/core/either";
 import { QuestionAttachment } from "../../enterprise/entities/question-attachment";
-import { QuestionAttachmenntList } from "../../enterprise/entities/question-attachment-list";
+import { QuestionAttachmentList } from "../../enterprise/entities/question-attachment-list";
 
 interface CreateQuestionUseCaseRequest {
   authorId: string;
@@ -41,7 +41,7 @@ export class CreateQuestionUseCase {
       });
     });
 
-    question.attachments = new QuestionAttachmenntList(questionAttachments);
+    question.attachments = new QuestionAttachmentList(questionAttachments);
 
     await this.questionsRepository.create(question);
 

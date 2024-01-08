@@ -3,13 +3,12 @@ import { UniqueEntityId } from "@/core/entities/unique-entity-id";
 import { Optional } from "@/core/types/optional";
 import { Slug } from "./value-objects/slug";
 import { AggregateRoot } from "@/core/entities/aggregate-root";
-import { QuestionAttachment } from "./question-attachment";
-import { QuestionAttachmenntList } from "./question-attachment-list";
+import { QuestionAttachmentList } from "./question-attachment-list";
 
 export interface QuestionProps {
   authorId: UniqueEntityId;
   bestAnswerId?: UniqueEntityId;
-  attachments: QuestionAttachmenntList;
+  attachments: QuestionAttachmentList;
   title: string;
   content: string;
   slug: Slug;
@@ -73,8 +72,9 @@ export class Question extends AggregateRoot<QuestionProps> {
     this.touch();
   }
 
-  set attachments(attachments: QuestionAttachmenntList) {
+  set attachments(attachments: QuestionAttachmentList) {
     this.props.attachments = attachments;
+    this.touch();
   }
 
   set bestAnswerId(bestAnswerId: UniqueEntityId | undefined) {
@@ -90,7 +90,7 @@ export class Question extends AggregateRoot<QuestionProps> {
       {
         ...props,
         slug: props.slug ?? Slug.createFromText(props.title),
-        attachments: props.attachments ?? new QuestionAttachmenntList(),
+        attachments: props.attachments ?? new QuestionAttachmentList(),
         createdAt: props.createdAt ?? new Date(),
       },
       id
